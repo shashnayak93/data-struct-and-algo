@@ -39,34 +39,90 @@ class SinglyLinkedList{
     //     }
     // }
     pop(){
+        //If there is no nodes in the list, return undefined
         if(!this.head){
             return undefined;
         }
-
+        //Loop through the list until you reach the tail
+        //Set the next property of the 2nd to last node to be null
         let current = this.head;
         let secondLast = current;
         while(current.next){
             secondLast = current;
             current = current.next;
         }
+        //Set the tail to be the 2nd to the last node
         this.tail = secondLast;
         this.tail.next = null;
+        //Decrement the length of the list by 1
         this.length--;
         if(this.length === 0){
             this.head = null;
             this.tail = null;
         }
+        //Return the value of the node removed
         return current;
     }
     shift(){
+        //If there are no nodes, return undefined
         if(!this.head){
             return undefined;
         }
-
+        //Store the current head property in a variable
         let current = this.head;
+        //Set the head property to be the current head's next property
         this.head = current.next;
+        //Decrement the length by 1
         this.length--;
+        if(this.length === 0){
+            this.head = null;
+            this.tail = null;
+        }
+        //Return the value of the node removed
         return current;
+    }
+    //unshift function should accept a value - val
+    unshift(val){
+        //Create a new node using the value passed to the function
+        const newNode = new Node(val);
+        //If there is no head property on the list, set the head and tail to be the newly created node
+        //Otherwise set the newly created node's next property to be the current head property on the list
+        //Set the head property on the list to be that newly created node
+        if(!this.head){
+            this.head = newNode;
+            this.tail = this.head;
+        }
+        else{
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+        //Increment the length of list by 1
+        this.length++;
+        //Return the linked list
+        return this;
+    }
+    //Get function should accept an index - index
+    get(index){
+        if(index<0 || index>=this.length){
+            return null;
+        }
+        let counter = 0;
+        let current = this.head;
+        while(counter !== index){
+            current = current.next;
+            counter++;
+        }
+        return current;
+    }
+
+    set(index, val){
+        const setNode = this.get(index);
+        if(setNode){
+            setNode.val = val;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     }
@@ -88,5 +144,8 @@ list.push("!");
 // list.pop();
 // console.log(list.pop());
 // console.log(list);
-console.log(list.shift());
+// console.log(list.shift());
+// console.log(list);
+list.unshift("AYEEE");
+console.log(list.set(1,"So Long"));
 console.log(list);
