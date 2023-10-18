@@ -57,7 +57,18 @@ class SinglyLinkedList{
             this.tail = null;
         }
         return current;
+    }
+    shift(){
+        if(!this.head){
+            return undefined;
         }
+
+        let current = this.head;
+        this.head = current.next;
+        this.length--;
+        return current;
+    }
+
     }
 
 // const first = new Node("Hi");
@@ -77,3 +88,5 @@ list.push("!");
 // list.pop();
 // console.log(list.pop());
 // console.log(list);
+console.log(list.shift());
+console.log(list);
