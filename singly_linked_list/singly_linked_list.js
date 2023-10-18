@@ -14,6 +14,7 @@ class SinglyLinkedList{
         this.tail = null;
         this.length = 0;
     }
+
     // push function should accept a value - val
     push(val){
         //Create a new node using the value passed to function
@@ -31,6 +32,7 @@ class SinglyLinkedList{
         this.length++;
         return this;
     }
+
     // traverse(){
     //     let current = this.head;
     //     while(current){
@@ -38,6 +40,7 @@ class SinglyLinkedList{
     //         current = current.next;
     //     }
     // }
+
     pop(){
         //If there is no nodes in the list, return undefined
         if(!this.head){
@@ -63,6 +66,7 @@ class SinglyLinkedList{
         //Return the value of the node removed
         return current;
     }
+
     shift(){
         //If there are no nodes, return undefined
         if(!this.head){
@@ -81,6 +85,7 @@ class SinglyLinkedList{
         //Return the value of the node removed
         return current;
     }
+
     //unshift function should accept a value - val
     unshift(val){
         //Create a new node using the value passed to the function
@@ -101,6 +106,7 @@ class SinglyLinkedList{
         //Return the linked list
         return this;
     }
+
     //Get function should accept an index - index
     get(index){
         if(index<0 || index>=this.length){
@@ -125,6 +131,72 @@ class SinglyLinkedList{
         }
     }
 
+
+    insert(index, val){
+        if(index<0 || index>list.length){
+            return false
+        }
+        if(index===this.length){
+            return !!this.push(val);
+        }
+        if(index===0){
+            return !!this.unshift(val);
+        }
+
+        let newNode = new Node(val);
+        let prev = this.get(index-1);
+        let temp = prev.next;
+        prev.next = newNode;
+        newNode.next = temp;
+        this.length++;
+        return true;
+    }
+
+    remove(index){
+        if(index<0 || index >= this.length){
+            return undefined;
+        }
+        if(index===this.length-1){
+            return this.pop()
+        }
+        if(index===0){
+            return this.shift()
+        }
+
+        let prev = this.get(index-1);
+        let removed = prev.next;
+        prev.next= removed.next;
+        this.length--;
+        return removed;
+
+    }
+
+    reverse(){
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        let prev = null;
+        let next = null;
+        for(let i=0;i<this.length;i++){
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+
+        return this;
+    }
+
+    print(){
+        const arr = [];
+        let current = this.head;
+        while(current){
+            arr.push(current.val);
+            current = current.next;
+        }
+        return arr;
+    }
+
     }
 
 // const first = new Node("Hi");
@@ -146,6 +218,11 @@ list.push("!");
 // console.log(list);
 // console.log(list.shift());
 // console.log(list);
-list.unshift("AYEEE");
-console.log(list.set(1,"So Long"));
-console.log(list);
+// list.unshift("AYEEE");
+// console.log(list.set(1,"So Long"));
+// console.log(list);
+// console.log(list.remove(1));
+// console.log(list);
+console.log(list.print())
+console.log(list.reverse())
+console.log(list.print())
